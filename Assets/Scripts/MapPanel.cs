@@ -79,7 +79,14 @@ public class MapPanel : MonoBehaviour
         }
         else
         {
-            mapList.Add(scene);
+            if (!mapList.Contains(scene))
+                mapList.Add(scene);
         }
+    }
+    
+    public static void ClearMap()
+    {
+        mapList.Clear();
+        mapList.Add("101");
     }
 }

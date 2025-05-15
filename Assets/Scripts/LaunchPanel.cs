@@ -17,4 +17,9 @@ public class LaunchPanel : MonoBehaviour
         startBtn.onClick.AddListener(() => { SceneManager.LoadScene(1); });
         mapBtn.onClick.AddListener(() => { mapPanel.SetActive(true); });
     }
+    
+    private void Start()
+    {
+        MapPanel.ClearMap();
+    }
 }
