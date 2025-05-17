@@ -32,7 +32,7 @@ public class SeeArea : MonoBehaviour
     private IEnumerator OnDelayReach()
     {
         yield return new WaitForSeconds(DelayTime);
-        if (IsLowpass)
+        if (isColliding)
         {
             SceneManager.LoadScene(JumpScene);
         }

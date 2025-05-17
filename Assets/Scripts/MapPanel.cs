@@ -1,45 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using RenderHeads.Media.AVProVideo;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MapPanel : MonoBehaviour
 {
+    private MediaPlayer m_MediaPlayer;
+    private AudioSource m_MediaAudio;
     public Button closeBtn;
     private AudioSource audioSource;
     private Image m_Image;
+    private static List<string> mapList = new() { "101" };
 
-    private Dictionary<string, string> clouds;
-    static List<string> mapList = new() { "101" };
+    private Dictionary<string, string> clouds = new()
+    {
+        { "101", "剧情1" },
+        { "101-201", "剧情2.1" },
+        { "101-201-301", "剧情2.1-3.1" },
+        { "101-201-301-403", "剧情2.1-3.1-4.3" },
+        { "101-201-302", "剧情2.1-3.2" },
+        { "101-201-302-403", "剧情2.1-3.2-4.3" },
+        { "101-201-401", "剧情2.1-4.1" },
+        { "101-201-401-1", "剧情2.1-4.1-1" }, //换酒成功
+        { "101-201-401-2", "剧情2.1-4.1-2" }, //换酒失败
+        { "101-202", "剧情2.2.png" },
+        { "101-202-301", "剧情2.2-3.1" },
+        { "101-202-301-403", "剧情2.2-3.1-4.3" },
+        { "101-202-302", "剧情2.2-3.2" },
+        { "101-202-302-403", "剧情2.2-3.2-4.3" },
+        { "101-202-402", "剧情2.2-4.2" }
+    };
 
     void Awake()
     {
+        m_MediaPlayer = FindObjectOfType<MediaPlayer>();
+        m_MediaAudio = GameObject.Find("剧情音频").GetComponent<AudioSource>();
         m_Image = gameObject.GetComponent<Image>();
         closeBtn.onClick.AddListener(() => { gameObject.SetActive(false); });
         audioSource = GetComponent<AudioSource>();
-        clouds = new Dictionary<string, string>();
-        clouds["101"] = "剧情1";
-        clouds["101-201"] = "剧情2.1";
-        clouds["101-201-301"] = "剧情2.1-3.1";
-        clouds["101-201-301-403"] = "剧情2.1-3.1-4.3";
-        clouds["101-201-302"] = "剧情2.1-3.2";
-        clouds["101-201-302-403"] = "剧情2.1-3.2-4.3";
-        clouds["101-201-401"] = "剧情2.1-4.1";
-        clouds["101-201-401-1"] = "剧情2.1-4.1-1"; //换酒成功
-        clouds["101-201-401-2"] = "剧情2.1-4.1-2"; //换酒失败
-        clouds["101-202"] = "剧情2.2.png";
-        clouds["101-202-301"] = "剧情2.2-3.1";
-        clouds["101-202-301-403"] = "剧情2.2-3.1-4.3";
-        clouds["101-202-302"] = "剧情2.2-3.2";
-        clouds["101-202-302-403"] = "剧情2.2-3.2-4.3";
-        clouds["101-202-402"] = "剧情2.2-4.2";
     }
 
     private void OnEnable()
     {
         if (audioSource)
             audioSource.Play();
+        if (m_MediaAudio)
+            m_MediaAudio.Pause();
+        m_MediaPlayer.Pause();
 
         var sb = new StringBuilder();
         foreach (var map in mapList)
@@ -62,7 +71,11 @@ public class MapPanel : MonoBehaviour
     private void OnDisable()
     {
         if (audioSource)
-            audioSource.Stop();
+            audioSource.Pause();
+
+        if (m_MediaAudio)
+            m_MediaAudio.Play();
+        m_MediaPlayer.Play();
     }
 
     public static void LoadedMap(string scene)
@@ -83,7 +96,7 @@ public class MapPanel : MonoBehaviour
                 mapList.Add(scene);
         }
     }
-    
+
     public static void ClearMap()
     {
         mapList.Clear();
