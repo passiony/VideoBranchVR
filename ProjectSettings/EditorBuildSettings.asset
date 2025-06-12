@@ -56,5 +56,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game401.unity
     guid: dd297316085ae3f469312ae40801d9cf
+  - enabled: 1
+    path: Assets/Scenes/Game403.unity
+    guid: d696ebdf68948b64ebab870af6a97317
   m_configObjects:
+    Unity.XR.PXR.Settings: {fileID: 11400000, guid: 3a82f130f2a4a304aa42f3c6be19c628, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 9c818fa845978c74c90bbddaa9a994d9, type: 2}
