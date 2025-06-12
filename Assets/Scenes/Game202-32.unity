@@ -533,9 +533,9 @@ MonoBehaviour:
   _autoOpen: 1
   _autoPlayOnStart: 1
   _loop: 0
-  _audioVolume: 0
+  _audioVolume: 1
   _audioBalance: 0
-  _audioMuted: 1
+  _audioMuted: 0
   _playbackRate: 1
   _useResampler: 0
   _resampleMode: 0
