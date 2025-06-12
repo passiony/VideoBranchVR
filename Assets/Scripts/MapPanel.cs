@@ -9,6 +9,7 @@ public class MapPanel : MonoBehaviour
 {
     private MediaPlayer m_MediaPlayer;
     private AudioSource m_MediaAudio;
+    private AudioSource m_MediaAudio2;
     public Button closeBtn;
     private AudioSource audioSource;
     private Image m_Image;
@@ -36,7 +37,8 @@ public class MapPanel : MonoBehaviour
     void Awake()
     {
         m_MediaPlayer = FindObjectOfType<MediaPlayer>();
-        m_MediaAudio = GameObject.Find("剧情音频").GetComponent<AudioSource>();
+        m_MediaAudio = GameObject.Find("剧情音频")?.GetComponent<AudioSource>();
+        m_MediaAudio2 = GameObject.Find("SeeArea")?.GetComponent<AudioSource>();
         m_Image = gameObject.GetComponent<Image>();
         closeBtn.onClick.AddListener(() => { gameObject.SetActive(false); });
         audioSource = GetComponent<AudioSource>();
@@ -48,6 +50,8 @@ public class MapPanel : MonoBehaviour
             audioSource.Play();
         if (m_MediaAudio)
             m_MediaAudio.Pause();
+        if(m_MediaAudio2)
+            m_MediaAudio2.Pause();
         m_MediaPlayer.Pause();
 
         var sb = new StringBuilder();
@@ -75,6 +79,10 @@ public class MapPanel : MonoBehaviour
 
         if (m_MediaAudio)
             m_MediaAudio.Play();
+        
+        if(m_MediaAudio2)
+            m_MediaAudio2.Play();
+        
         m_MediaPlayer.Play();
     }
 
